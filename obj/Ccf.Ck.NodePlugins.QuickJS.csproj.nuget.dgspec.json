@@ -49,6 +49,10 @@
               "target": "Package",
               "version": "[6.0.7, )"
             },
+            "Ccf.Ck.SysPlugins.Data.Base": {
+              "target": "Package",
+              "version": "[6.0.7, )"
+            },
             "QuickJS.NET": {
               "target": "Package",
               "version": "[0.0.3, )"
