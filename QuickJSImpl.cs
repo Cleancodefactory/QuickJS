@@ -11,6 +11,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
 
         protected override void ExecuteWrite(IDataLoaderWriteContext execContext) {
             throw new NotImplementedException();
+
         }
     }
 }
