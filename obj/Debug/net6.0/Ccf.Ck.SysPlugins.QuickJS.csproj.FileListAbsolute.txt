@@ -1,0 +1,17 @@
+E:\Git\QuickJS\bin\Debug\net6.0\runtimes\linux-x64\native\libquickjs.so
+E:\Git\QuickJS\bin\Debug\net6.0\runtimes\win-x64\native\quickjs.dll
+E:\Git\QuickJS\bin\Debug\net6.0\runtimes\win-x64\native\quickjs.pdb
+E:\Git\QuickJS\bin\Debug\net6.0\runtimes\win-x86\native\quickjs.dll
+E:\Git\QuickJS\bin\Debug\net6.0\runtimes\win-x86\native\quickjs.pdb
+E:\Git\QuickJS\bin\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.deps.json
+E:\Git\QuickJS\bin\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.dll
+E:\Git\QuickJS\bin\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.pdb
+E:\Git\QuickJS\obj\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.csproj.AssemblyReference.cache
+E:\Git\QuickJS\obj\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.GeneratedMSBuildEditorConfig.editorconfig
+E:\Git\QuickJS\obj\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.AssemblyInfoInputs.cache
+E:\Git\QuickJS\obj\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.AssemblyInfo.cs
+E:\Git\QuickJS\obj\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.csproj.CoreCompileInputs.cache
+E:\Git\QuickJS\obj\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.dll
+E:\Git\QuickJS\obj\Debug\net6.0\refint\Ccf.Ck.SysPlugins.QuickJS.dll
+E:\Git\QuickJS\obj\Debug\net6.0\Ccf.Ck.SysPlugins.QuickJS.pdb
+E:\Git\QuickJS\obj\Debug\net6.0\ref\Ccf.Ck.SysPlugins.QuickJS.dll
