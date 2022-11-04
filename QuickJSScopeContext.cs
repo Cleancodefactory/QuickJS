@@ -10,16 +10,21 @@ using QuickJS.Native;
 
 namespace Ccf.Ck.SysPlugins.QuickJS {
     public class QuickJSScopeContext : DataLoaderScopedContextBase, IPluginsSynchronizeContextScopedEx, ITransactionScope {
+        public string PluginName { get; set; }
+        public string ModuleName { get; set; }
+
+
+
         public void CommitTransaction() {
-            throw new NotImplementedException();
+            
         }
 
         public void RollbackTransaction() {
-            throw new NotImplementedException();
+            
         }
 
         public object StartTransaction() {
-            throw new NotImplementedException();
+            return null!;
         }
     }
 }

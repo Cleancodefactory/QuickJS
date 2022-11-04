@@ -26,13 +26,13 @@
           }
         }
       },
-      "Ccf.Ck.Models.ContextBasket/6.0.7": {
+      "Ccf.Ck.Models.ContextBasket/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.NodeRequest": "6.0.7",
-          "Ccf.Ck.Models.Packet": "6.0.7",
-          "Ccf.Ck.Processing.Execution": "6.0.7",
-          "Ccf.Ck.SysPlugins.Interfaces": "6.0.7"
+          "Ccf.Ck.Models.NodeRequest": "6.0.8",
+          "Ccf.Ck.Models.Packet": "6.0.8",
+          "Ccf.Ck.Processing.Execution": "6.0.8",
+          "Ccf.Ck.SysPlugins.Interfaces": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.ContextBasket.dll": {}
@@ -41,11 +41,11 @@
           "lib/net6.0/Ccf.Ck.Models.ContextBasket.dll": {}
         }
       },
-      "Ccf.Ck.Models.DirectCall/6.0.7": {
+      "Ccf.Ck.Models.DirectCall/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.Enumerations": "6.0.7",
-          "Ccf.Ck.Models.Interfaces": "6.0.7"
+          "Ccf.Ck.Models.Enumerations": "6.0.8",
+          "Ccf.Ck.Models.Interfaces": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.DirectCall.dll": {}
@@ -54,7 +54,7 @@
           "lib/net6.0/Ccf.Ck.Models.DirectCall.dll": {}
         }
       },
-      "Ccf.Ck.Models.Enumerations/6.0.7": {
+      "Ccf.Ck.Models.Enumerations/6.0.8": {
         "type": "package",
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.Enumerations.dll": {}
@@ -63,7 +63,7 @@
           "lib/net6.0/Ccf.Ck.Models.Enumerations.dll": {}
         }
       },
-      "Ccf.Ck.Models.Exceptions/6.0.7": {
+      "Ccf.Ck.Models.Exceptions/6.0.8": {
         "type": "package",
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.Exceptions.dll": {}
@@ -72,11 +72,11 @@
           "lib/net6.0/Ccf.Ck.Models.Exceptions.dll": {}
         }
       },
-      "Ccf.Ck.Models.Interfaces/6.0.7": {
+      "Ccf.Ck.Models.Interfaces/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.Enumerations": "6.0.7",
-          "Ccf.Ck.Models.NodeSet": "6.0.7"
+          "Ccf.Ck.Models.Enumerations": "6.0.8",
+          "Ccf.Ck.Models.NodeSet": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.Interfaces.dll": {}
@@ -85,15 +85,15 @@
           "lib/net6.0/Ccf.Ck.Models.Interfaces.dll": {}
         }
       },
-      "Ccf.Ck.Models.NodeRequest/6.0.7": {
+      "Ccf.Ck.Models.NodeRequest/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.Enumerations": "6.0.7",
-          "Ccf.Ck.Models.Interfaces": "6.0.7",
-          "Ccf.Ck.Models.Settings": "6.0.7",
-          "Ccf.Ck.Models.Web.Settings": "6.0.7",
-          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "6.0.7",
-          "Microsoft.Extensions.DependencyInjection": "6.0.0"
+          "Ccf.Ck.Models.Enumerations": "6.0.8",
+          "Ccf.Ck.Models.Interfaces": "6.0.8",
+          "Ccf.Ck.Models.Settings": "6.0.8",
+          "Ccf.Ck.Models.Web.Settings": "6.0.8",
+          "Microsoft.AspNetCore.Authentication.OpenIdConnect": "6.0.10",
+          "Microsoft.Extensions.DependencyInjection": "6.0.1"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.NodeRequest.dll": {}
@@ -102,10 +102,10 @@
           "lib/net6.0/Ccf.Ck.Models.NodeRequest.dll": {}
         }
       },
-      "Ccf.Ck.Models.NodeSet/6.0.7": {
+      "Ccf.Ck.Models.NodeSet/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.Enumerations": "6.0.7"
+          "Ccf.Ck.Models.Enumerations": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.NodeSet.dll": {}
@@ -114,11 +114,11 @@
           "lib/net6.0/Ccf.Ck.Models.NodeSet.dll": {}
         }
       },
-      "Ccf.Ck.Models.Packet/6.0.7": {
+      "Ccf.Ck.Models.Packet/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.Exceptions": "6.0.7",
-          "Ccf.Ck.SysPlugins.Interfaces": "6.0.7"
+          "Ccf.Ck.Models.Exceptions": "6.0.8",
+          "Ccf.Ck.SysPlugins.Interfaces": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.Packet.dll": {}
@@ -127,10 +127,10 @@
           "lib/net6.0/Ccf.Ck.Models.Packet.dll": {}
         }
       },
-      "Ccf.Ck.Models.Resolvers/6.0.7": {
+      "Ccf.Ck.Models.Resolvers/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.Enumerations": "6.0.7"
+          "Ccf.Ck.Models.Enumerations": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.Resolvers.dll": {}
@@ -139,13 +139,13 @@
           "lib/net6.0/Ccf.Ck.Models.Resolvers.dll": {}
         }
       },
-      "Ccf.Ck.Models.Settings/6.0.7": {
+      "Ccf.Ck.Models.Settings/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.Enumerations": "6.0.7",
-          "Ccf.Ck.Models.Web.Settings": "6.0.7",
-          "Ccf.Ck.Utilities.Generic": "6.0.7",
-          "Ccf.Ck.Utilities.MemoryCache": "6.0.7",
+          "Ccf.Ck.Models.Enumerations": "6.0.8",
+          "Ccf.Ck.Models.Web.Settings": "6.0.8",
+          "Ccf.Ck.Utilities.Generic": "6.0.8",
+          "Ccf.Ck.Utilities.MemoryCache": "6.0.8",
           "Microsoft.Extensions.Configuration": "6.0.1",
           "Microsoft.Extensions.Configuration.Binder": "6.0.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "6.0.0",
@@ -159,10 +159,10 @@
           "lib/net6.0/Ccf.Ck.Models.Settings.dll": {}
         }
       },
-      "Ccf.Ck.Models.Web.Settings/6.0.7": {
+      "Ccf.Ck.Models.Web.Settings/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Utilities.DependencyContainer": "6.0.7"
+          "Ccf.Ck.Utilities.DependencyContainer": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.Models.Web.Settings.dll": {}
@@ -171,12 +171,12 @@
           "lib/net6.0/Ccf.Ck.Models.Web.Settings.dll": {}
         }
       },
-      "Ccf.Ck.NodePlugins.Base/6.0.7": {
+      "Ccf.Ck.NodePlugins.Base/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.ContextBasket": "6.0.7",
-          "Ccf.Ck.Models.NodeSet": "6.0.7",
-          "Ccf.Ck.SysPlugins.Interfaces": "6.0.7"
+          "Ccf.Ck.Models.ContextBasket": "6.0.8",
+          "Ccf.Ck.Models.NodeSet": "6.0.8",
+          "Ccf.Ck.SysPlugins.Interfaces": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.NodePlugins.Base.dll": {}
@@ -185,16 +185,16 @@
           "lib/net6.0/Ccf.Ck.NodePlugins.Base.dll": {}
         }
       },
-      "Ccf.Ck.Processing.Execution/6.0.7": {
+      "Ccf.Ck.Processing.Execution/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.Packet": "6.0.7",
-          "Ccf.Ck.Models.Settings": "6.0.7",
-          "Ccf.Ck.SysPlugins.Interfaces": "6.0.7",
-          "Ccf.Ck.SysPlugins.Services": "6.0.7",
-          "Ccf.Ck.Utilities.Profiling": "6.0.7",
+          "Ccf.Ck.Models.Packet": "6.0.8",
+          "Ccf.Ck.Models.Settings": "6.0.8",
+          "Ccf.Ck.SysPlugins.Interfaces": "6.0.8",
+          "Ccf.Ck.SysPlugins.Services": "6.0.8",
+          "Ccf.Ck.Utilities.Profiling": "6.0.8",
           "Grace": "7.2.1",
-          "Microsoft.Extensions.DependencyInjection": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection": "6.0.1",
           "Microsoft.Extensions.Logging": "6.0.0"
         },
         "compile": {
@@ -204,12 +204,12 @@
           "lib/net6.0/Ccf.Ck.Processing.Execution.dll": {}
         }
       },
-      "Ccf.Ck.SysPlugins.Data.Base/6.0.7": {
+      "Ccf.Ck.SysPlugins.Data.Base/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.ContextBasket": "6.0.7",
-          "Ccf.Ck.Models.NodeSet": "6.0.7",
-          "Ccf.Ck.SysPlugins.Interfaces": "6.0.7"
+          "Ccf.Ck.Models.ContextBasket": "6.0.8",
+          "Ccf.Ck.Models.NodeSet": "6.0.8",
+          "Ccf.Ck.SysPlugins.Interfaces": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.SysPlugins.Data.Base.dll": {}
@@ -218,13 +218,13 @@
           "lib/net6.0/Ccf.Ck.SysPlugins.Data.Base.dll": {}
         }
       },
-      "Ccf.Ck.SysPlugins.Interfaces/6.0.7": {
+      "Ccf.Ck.SysPlugins.Interfaces/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.Models.DirectCall": "6.0.7",
-          "Ccf.Ck.Models.NodeRequest": "6.0.7",
-          "Ccf.Ck.Models.NodeSet": "6.0.7",
-          "Ccf.Ck.Models.Resolvers": "6.0.7"
+          "Ccf.Ck.Models.DirectCall": "6.0.8",
+          "Ccf.Ck.Models.NodeRequest": "6.0.8",
+          "Ccf.Ck.Models.NodeSet": "6.0.8",
+          "Ccf.Ck.Models.Resolvers": "6.0.8"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.SysPlugins.Interfaces.dll": {}
@@ -233,13 +233,13 @@
           "lib/net6.0/Ccf.Ck.SysPlugins.Interfaces.dll": {}
         }
       },
-      "Ccf.Ck.SysPlugins.Services/6.0.7": {
+      "Ccf.Ck.SysPlugins.Services/6.0.8": {
         "type": "package",
         "dependencies": {
-          "Ccf.Ck.SysPlugins.Interfaces": "6.0.7",
-          "Ccf.Ck.Utilities.DependencyContainer": "6.0.7",
+          "Ccf.Ck.SysPlugins.Interfaces": "6.0.8",
+          "Ccf.Ck.Utilities.DependencyContainer": "6.0.8",
           "Grace": "7.2.1",
-          "Microsoft.Extensions.DependencyInjection": "6.0.0"
+          "Microsoft.Extensions.DependencyInjection": "6.0.1"
         },
         "compile": {
           "lib/net6.0/Ccf.Ck.SysPlugins.Services.dll": {}
@@ -248,7 +248,7 @@
           "lib/net6.0/Ccf.Ck.SysPlugins.Services.dll": {}
         }
       },
-      "Ccf.Ck.Utilities.DependencyContainer/6.0.7": {
+      "Ccf.Ck.Utilities.DependencyContainer/6.0.8": {
         "type": "package",
         "dependencies": {
           "Grace": "7.2.1"
@@ -260,7 +260,7 @@
           "lib/net6.0/Ccf.Ck.Utilities.DependencyContainer.dll": {}
         }
       },
-      "Ccf.Ck.Utilities.Generic/6.0.7": {
+      "Ccf.Ck.Utilities.Generic/6.0.8": {
         "type": "package",
         "dependencies": {
           "Ccf.Ck.Libs.Logging": "6.0.0",
@@ -273,7 +273,7 @@
           "lib/net6.0/Ccf.Ck.Utilities.Generic.dll": {}
         }
       },
-      "Ccf.Ck.Utilities.MemoryCache/6.0.7": {
+      "Ccf.Ck.Utilities.MemoryCache/6.0.8": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Caching.Memory": "6.0.1",
@@ -286,7 +286,7 @@
           "lib/net6.0/Ccf.Ck.Utilities.MemoryCache.dll": {}
         }
       },
-      "Ccf.Ck.Utilities.Profiling/6.0.7": {
+      "Ccf.Ck.Utilities.Profiling/6.0.8": {
         "type": "package",
         "dependencies": {
           "MiniProfiler.AspNetCore.Mvc": "4.2.22"
@@ -327,7 +327,7 @@
           }
         }
       },
-      "Microsoft.AspNetCore.Authentication.OpenIdConnect/6.0.7": {
+      "Microsoft.AspNetCore.Authentication.OpenIdConnect/6.0.10": {
         "type": "package",
         "dependencies": {
           "Microsoft.IdentityModel.Protocols.OpenIdConnect": "6.10.0"
@@ -509,7 +509,7 @@
           }
         }
       },
-      "Microsoft.Extensions.DependencyInjection/6.0.0": {
+      "Microsoft.Extensions.DependencyInjection/6.0.1": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
@@ -1972,242 +1972,242 @@
         "lib/net6.0/Ccf.Ck.Libs.Logging.dll"
       ]
     },
-    "Ccf.Ck.Models.ContextBasket/6.0.7": {
-      "sha512": "HREP88FLicTWVah2543pdpMIOzyrfcPyLVGYecH/MNg5xOaONITzI4SMrWDTQTtOIRtK42+nd/HvvBPfCZRLgQ==",
+    "Ccf.Ck.Models.ContextBasket/6.0.8": {
+      "sha512": "HaPTYNQ0bte2QJ358UfL+snm9tiusNNedWKOOxw9sxYlklLpWQvXMzE2NfLKUPkzwyXxw9VC/uXnYFatChceew==",
       "type": "package",
-      "path": "ccf.ck.models.contextbasket/6.0.7",
+      "path": "ccf.ck.models.contextbasket/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.contextbasket.6.0.7.nupkg.sha512",
+        "ccf.ck.models.contextbasket.6.0.8.nupkg.sha512",
         "ccf.ck.models.contextbasket.nuspec",
         "lib/net6.0/Ccf.Ck.Models.ContextBasket.dll"
       ]
     },
-    "Ccf.Ck.Models.DirectCall/6.0.7": {
-      "sha512": "L4jytTl9M3hBVfaEK2QiGD4ywj8/lRMezVTrIZeqLr6dvAWUgoczZ2oc4b2bj3ImPJIKwz6ML8ZMn5KNDiTx0A==",
+    "Ccf.Ck.Models.DirectCall/6.0.8": {
+      "sha512": "v8JdSyVeG7WRUHIrrg5HVVC+BZJJ6MNAr0dS8gUYe7XBkSnmfbfud0C8Sbm6UsTN50Bo6VPSuhwMEo09qaE0sQ==",
       "type": "package",
-      "path": "ccf.ck.models.directcall/6.0.7",
+      "path": "ccf.ck.models.directcall/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.directcall.6.0.7.nupkg.sha512",
+        "ccf.ck.models.directcall.6.0.8.nupkg.sha512",
         "ccf.ck.models.directcall.nuspec",
         "lib/net6.0/Ccf.Ck.Models.DirectCall.dll"
       ]
     },
-    "Ccf.Ck.Models.Enumerations/6.0.7": {
-      "sha512": "gq69kM3kIag80m8xGBvhS1czGBvfQP8vRahtHYrJlN/zwQzU8cr3ubZQVBg0hjzUqT2EqUuqd6WL9EDyzHihNQ==",
+    "Ccf.Ck.Models.Enumerations/6.0.8": {
+      "sha512": "pLcJhmJUSi+y6kl1w+wkKULTW2B9lO6F5/0BYSSOeXflW0Xd0Nd8JKgwKD0U3Z4vo3tqRFuxYj/ohW2H34/4eA==",
       "type": "package",
-      "path": "ccf.ck.models.enumerations/6.0.7",
+      "path": "ccf.ck.models.enumerations/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.enumerations.6.0.7.nupkg.sha512",
+        "ccf.ck.models.enumerations.6.0.8.nupkg.sha512",
         "ccf.ck.models.enumerations.nuspec",
         "lib/net6.0/Ccf.Ck.Models.Enumerations.dll"
       ]
     },
-    "Ccf.Ck.Models.Exceptions/6.0.7": {
-      "sha512": "/lwYHHhrVRV+9LhOSRYcw9NarTuPpcrb68hycaXRJq9ao2WRxeeQs/WqqDRJr+G6g1AT0oew3q/PHIybEbHvaQ==",
+    "Ccf.Ck.Models.Exceptions/6.0.8": {
+      "sha512": "E9Jwrn9i8m6BmRPKSS7hWarfCys4cjiAxieTLI23K5YmK7OhaoOvwcVoN6wJKLlbmL6fG7Wi/1zt5qSjPD0CaA==",
       "type": "package",
-      "path": "ccf.ck.models.exceptions/6.0.7",
+      "path": "ccf.ck.models.exceptions/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.exceptions.6.0.7.nupkg.sha512",
+        "ccf.ck.models.exceptions.6.0.8.nupkg.sha512",
         "ccf.ck.models.exceptions.nuspec",
         "lib/net6.0/Ccf.Ck.Models.Exceptions.dll"
       ]
     },
-    "Ccf.Ck.Models.Interfaces/6.0.7": {
-      "sha512": "y9oLsHcsCVLPTGYth/1kg6Qh20iJpMVjxAqQYkg6uClmue6lrYfrSKXWpha+9+zp2I+2Bbc+VxSHD7EMNjiTkg==",
+    "Ccf.Ck.Models.Interfaces/6.0.8": {
+      "sha512": "FufoK0Tyua9/mRai9CQaV3D2SZmoYDm37AFv5PeInB/58AzqGM5cqdA+oCaOCaasLW7kevGAaWVtZ5D3ROIvoA==",
       "type": "package",
-      "path": "ccf.ck.models.interfaces/6.0.7",
+      "path": "ccf.ck.models.interfaces/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.interfaces.6.0.7.nupkg.sha512",
+        "ccf.ck.models.interfaces.6.0.8.nupkg.sha512",
         "ccf.ck.models.interfaces.nuspec",
         "lib/net6.0/Ccf.Ck.Models.Interfaces.dll"
       ]
     },
-    "Ccf.Ck.Models.NodeRequest/6.0.7": {
-      "sha512": "oQyQk3SZDiRuMmF+AbDafedIC10LNRScenYCbk3iBJwE3zho6jSCrVosBIRQNJXiNmJnz45qXqMlkyltKhMmuA==",
+    "Ccf.Ck.Models.NodeRequest/6.0.8": {
+      "sha512": "9/LZu6b8YQ4vaOLzjSJ+6BLOMITe/lNUr6skrcjae/k2MCSsWb1DAT78fPHnWRembJQdJl97eg48tsN8uuvNXQ==",
       "type": "package",
-      "path": "ccf.ck.models.noderequest/6.0.7",
+      "path": "ccf.ck.models.noderequest/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.noderequest.6.0.7.nupkg.sha512",
+        "ccf.ck.models.noderequest.6.0.8.nupkg.sha512",
         "ccf.ck.models.noderequest.nuspec",
         "lib/net6.0/Ccf.Ck.Models.NodeRequest.dll"
       ]
     },
-    "Ccf.Ck.Models.NodeSet/6.0.7": {
-      "sha512": "9s4jH5Wg6E34HvC2QFDw5yJeFtwD/tQObzbfexs6j9wIY0iJV6Q7s7pG+jB8CmPQewT9WojrKrdJX8TliI0AIg==",
+    "Ccf.Ck.Models.NodeSet/6.0.8": {
+      "sha512": "WUVO4VpQM7ovwqdiCyJGEGhaSX+e5en2RJoBPk/Vz87TVv1g/eMAsix6qdJ4VMVcA+sXx8PvQOlr+f/cGlkdhQ==",
       "type": "package",
-      "path": "ccf.ck.models.nodeset/6.0.7",
+      "path": "ccf.ck.models.nodeset/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.nodeset.6.0.7.nupkg.sha512",
+        "ccf.ck.models.nodeset.6.0.8.nupkg.sha512",
         "ccf.ck.models.nodeset.nuspec",
         "lib/net6.0/Ccf.Ck.Models.NodeSet.dll"
       ]
     },
-    "Ccf.Ck.Models.Packet/6.0.7": {
-      "sha512": "r40HcWfemR6TuKsGt75A6ut79frxY7Tg/qR7IJiJ0vbI3DPB7D/5i1kv9ED1BhNsWf5XZlU1g+kDtwHoaNtRcg==",
+    "Ccf.Ck.Models.Packet/6.0.8": {
+      "sha512": "o6LIt/G1MU4OcxzzPLEgwpm8toPlbXeNvXGh2wgc+sTszij5+ZhzQ+ybKbe8DNBfhX9iSoF+dkzGOVHk4QQMzg==",
       "type": "package",
-      "path": "ccf.ck.models.packet/6.0.7",
+      "path": "ccf.ck.models.packet/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.packet.6.0.7.nupkg.sha512",
+        "ccf.ck.models.packet.6.0.8.nupkg.sha512",
         "ccf.ck.models.packet.nuspec",
         "lib/net6.0/Ccf.Ck.Models.Packet.dll"
       ]
     },
-    "Ccf.Ck.Models.Resolvers/6.0.7": {
-      "sha512": "E870vOn3/nbcXjW830oPsKRMb/fEUPzi/uXeEDsJ7W1l/MLptTqaWobNdRe+KFuew7DQqH3z2GhB44Z1WE/PaQ==",
+    "Ccf.Ck.Models.Resolvers/6.0.8": {
+      "sha512": "ONWomOGRUSGxeyaRHriUKszEyVUnJNKnZT6x8QmT2qdZtjC926Qwwte0dUEMZkhwUIfcLAukEl1TTc3ny40mSg==",
       "type": "package",
-      "path": "ccf.ck.models.resolvers/6.0.7",
+      "path": "ccf.ck.models.resolvers/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.resolvers.6.0.7.nupkg.sha512",
+        "ccf.ck.models.resolvers.6.0.8.nupkg.sha512",
         "ccf.ck.models.resolvers.nuspec",
         "lib/net6.0/Ccf.Ck.Models.Resolvers.dll"
       ]
     },
-    "Ccf.Ck.Models.Settings/6.0.7": {
-      "sha512": "wjPenfmtGvneQMPazUHlsT0kPt7+WRfZ0qki94L1J64ZV2Md1AmM++o6CXfh1js+kERoBsLoB69nqG5FJTWMyw==",
+    "Ccf.Ck.Models.Settings/6.0.8": {
+      "sha512": "DkqBkEkxa8gsid+uogsHWy04vbOU0RefXQ5J09ImoIQbrcNBL4JfyOV1wyTPvAPiJ22OZhmx+s6jq8zrQZnGxA==",
       "type": "package",
-      "path": "ccf.ck.models.settings/6.0.7",
+      "path": "ccf.ck.models.settings/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.settings.6.0.7.nupkg.sha512",
+        "ccf.ck.models.settings.6.0.8.nupkg.sha512",
         "ccf.ck.models.settings.nuspec",
         "lib/net6.0/Ccf.Ck.Models.Settings.dll"
       ]
     },
-    "Ccf.Ck.Models.Web.Settings/6.0.7": {
-      "sha512": "+xYJF5m/OskJhkqjDk2JqtmcDzq+ANptOYFGxv2kGJPLkT+mifVu7oMKo9FBXpGYgOPwC9yjSDugyIiDHhvgoQ==",
+    "Ccf.Ck.Models.Web.Settings/6.0.8": {
+      "sha512": "cG3yjm/oHQtIhrbZAP0PdYifxKjk7J8UhD1BX6Q8EQ5HCcrAmkV2ZMif/ftY7+DQObKGZxZS6e3qNge9AUGOPA==",
       "type": "package",
-      "path": "ccf.ck.models.web.settings/6.0.7",
+      "path": "ccf.ck.models.web.settings/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.models.web.settings.6.0.7.nupkg.sha512",
+        "ccf.ck.models.web.settings.6.0.8.nupkg.sha512",
         "ccf.ck.models.web.settings.nuspec",
         "lib/net6.0/Ccf.Ck.Models.Web.Settings.dll"
       ]
     },
-    "Ccf.Ck.NodePlugins.Base/6.0.7": {
-      "sha512": "LGW93TPjyYuzg40am7JW8dt5wBFuPRQUkC8jNyo1HZTPuwXaQ8OlivmnBhsp4V1iEjp9ZzY3TbCelGQLC/T5iQ==",
+    "Ccf.Ck.NodePlugins.Base/6.0.8": {
+      "sha512": "MooDFB2ciN3xOQUG7WDvjT9VTU8vFV+yuImanPUU3ArDeN+PmezBQeHl5UDGu6Xt0AKdX6EaQr+NMSthYKFcmQ==",
       "type": "package",
-      "path": "ccf.ck.nodeplugins.base/6.0.7",
+      "path": "ccf.ck.nodeplugins.base/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.nodeplugins.base.6.0.7.nupkg.sha512",
+        "ccf.ck.nodeplugins.base.6.0.8.nupkg.sha512",
         "ccf.ck.nodeplugins.base.nuspec",
         "lib/net6.0/Ccf.Ck.NodePlugins.Base.dll"
       ]
     },
-    "Ccf.Ck.Processing.Execution/6.0.7": {
-      "sha512": "R4Va3ExU7uHvuZv1jrrY+Gr44Ibtttb0cwRUAje3N2/pZX8uDwmLwbOTtgoeoqUgfL2IVpIvPOwji3SnT7dR7g==",
+    "Ccf.Ck.Processing.Execution/6.0.8": {
+      "sha512": "hCfBHwJTLTLQ6cISpTgUInw9uI1yxYxCg3zUPGfEG3Tn69iEmrVNn2pi6kSpjmnyHF680wFIlihHPEjWD5yIEw==",
       "type": "package",
-      "path": "ccf.ck.processing.execution/6.0.7",
+      "path": "ccf.ck.processing.execution/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.processing.execution.6.0.7.nupkg.sha512",
+        "ccf.ck.processing.execution.6.0.8.nupkg.sha512",
         "ccf.ck.processing.execution.nuspec",
         "lib/net6.0/Ccf.Ck.Processing.Execution.dll"
       ]
     },
-    "Ccf.Ck.SysPlugins.Data.Base/6.0.7": {
-      "sha512": "5o3S9CSCV8IHTPUaQNIaKhqg+UNfLGv2lIkUVYjJLWVM6OYbvOFQCey6e6zsCrJQ01QhaJFWWoVRG2OqeUsN+A==",
+    "Ccf.Ck.SysPlugins.Data.Base/6.0.8": {
+      "sha512": "bUJmg1UN7hCBlu5M85blnf+3q2+pOZRSbNOnvNO8EHAUJXkkoJkI6xqCLZMcXDoZcGD5+vf3NrulhhKVu3pN3g==",
       "type": "package",
-      "path": "ccf.ck.sysplugins.data.base/6.0.7",
+      "path": "ccf.ck.sysplugins.data.base/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.sysplugins.data.base.6.0.7.nupkg.sha512",
+        "ccf.ck.sysplugins.data.base.6.0.8.nupkg.sha512",
         "ccf.ck.sysplugins.data.base.nuspec",
         "lib/net6.0/Ccf.Ck.SysPlugins.Data.Base.dll"
       ]
     },
-    "Ccf.Ck.SysPlugins.Interfaces/6.0.7": {
-      "sha512": "Fw36BSce9RQ+fd4S8tkt5MW6vPvsvB9tPqNeUfRvmogxNKehMGR49V1t8yMPtZxTSw6iUUShhoaITxDKs+0gnQ==",
+    "Ccf.Ck.SysPlugins.Interfaces/6.0.8": {
+      "sha512": "h4SDd2XphFpdJxpnUWF+9gPBkWw7OJ3cEwmq4Lr+l6v86xJHKlo4wGll+STCrjyeS1m3Wna4aYZtTj/GPPwOkQ==",
       "type": "package",
-      "path": "ccf.ck.sysplugins.interfaces/6.0.7",
+      "path": "ccf.ck.sysplugins.interfaces/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.sysplugins.interfaces.6.0.7.nupkg.sha512",
+        "ccf.ck.sysplugins.interfaces.6.0.8.nupkg.sha512",
         "ccf.ck.sysplugins.interfaces.nuspec",
         "lib/net6.0/Ccf.Ck.SysPlugins.Interfaces.dll"
       ]
     },
-    "Ccf.Ck.SysPlugins.Services/6.0.7": {
-      "sha512": "tvaylWxMLkvcdJzIAvxRsuoktFSJ2c4l4RD+ZRqlMgSKUgANnV0y0lbxB3jcs+oofPb/jFyFQ/DBEw9Bv9yHAA==",
+    "Ccf.Ck.SysPlugins.Services/6.0.8": {
+      "sha512": "sJYGpdRabbuqhlz3GzsVR+DIK1ycTHjttlGnkFldhXejFED2HP5OtKPjmo2eVkV8DSwIf36xCq7Ybi4WgZiglw==",
       "type": "package",
-      "path": "ccf.ck.sysplugins.services/6.0.7",
+      "path": "ccf.ck.sysplugins.services/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.sysplugins.services.6.0.7.nupkg.sha512",
+        "ccf.ck.sysplugins.services.6.0.8.nupkg.sha512",
         "ccf.ck.sysplugins.services.nuspec",
         "lib/net6.0/Ccf.Ck.SysPlugins.Services.dll"
       ]
     },
-    "Ccf.Ck.Utilities.DependencyContainer/6.0.7": {
-      "sha512": "NiM8ECYuNPJRS/XX668bbSiJB+qwzKlkifmLU0p3WmzS91vdEQbHYB2T7pJgg3vDt182Tm41EX1UOaNLLQxPFQ==",
+    "Ccf.Ck.Utilities.DependencyContainer/6.0.8": {
+      "sha512": "eXp1rZfvfygXsRFUXEnwGZhS1LxdNVJ6hbbTf96A5imJbgNKCvxV9wu6ce20mxIZJ8Y5Ure3Gl1LSk3DgNibag==",
       "type": "package",
-      "path": "ccf.ck.utilities.dependencycontainer/6.0.7",
+      "path": "ccf.ck.utilities.dependencycontainer/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.utilities.dependencycontainer.6.0.7.nupkg.sha512",
+        "ccf.ck.utilities.dependencycontainer.6.0.8.nupkg.sha512",
         "ccf.ck.utilities.dependencycontainer.nuspec",
         "lib/net6.0/Ccf.Ck.Utilities.DependencyContainer.dll"
       ]
     },
-    "Ccf.Ck.Utilities.Generic/6.0.7": {
-      "sha512": "7KOT3clI7W8M624frjAaiTsenXovsUl9FcyjMMrRIkIB1QuEHDSmKYS/3hzGr4q7Uoq0hXs0VWTdU5vt0RcWJQ==",
+    "Ccf.Ck.Utilities.Generic/6.0.8": {
+      "sha512": "A6VBE8kSGlMrccXDPa+G7IQCYTKM0HjL0yxERVFcdQyipngg6JTOaTxPpWvPXO0ksKm/RekevuXGQbkY3ANHtw==",
       "type": "package",
-      "path": "ccf.ck.utilities.generic/6.0.7",
+      "path": "ccf.ck.utilities.generic/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.utilities.generic.6.0.7.nupkg.sha512",
+        "ccf.ck.utilities.generic.6.0.8.nupkg.sha512",
         "ccf.ck.utilities.generic.nuspec",
         "lib/net6.0/Ccf.Ck.Utilities.Generic.dll"
       ]
     },
-    "Ccf.Ck.Utilities.MemoryCache/6.0.7": {
-      "sha512": "UgTFQnJI+Ti6VHuszsjAEEz+K8CFJLjFVsiuw+LG4bQvU8LqcZ2nXfIJ3wRb+prSy8HQV4wp+tBfBjlhWATK2Q==",
+    "Ccf.Ck.Utilities.MemoryCache/6.0.8": {
+      "sha512": "24FHXoeBv866V/MKeGIFp6lrc4QGU13TJSIenAUSca/wTkrdZThRVjjgjijftVf0+0ymjrDmyDcm4f6NRH8AUg==",
       "type": "package",
-      "path": "ccf.ck.utilities.memorycache/6.0.7",
+      "path": "ccf.ck.utilities.memorycache/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.utilities.memorycache.6.0.7.nupkg.sha512",
+        "ccf.ck.utilities.memorycache.6.0.8.nupkg.sha512",
         "ccf.ck.utilities.memorycache.nuspec",
         "lib/net6.0/Ccf.Ck.Utilities.MemoryCache.dll"
       ]
     },
-    "Ccf.Ck.Utilities.Profiling/6.0.7": {
-      "sha512": "llaRuwMwRukLq9pv1vfO0kJxPivJtEgjdQYAigbdOhzzeH+7n8IRzd6PexytM7GAbUv8V+3CAMoNvQK7yOcf6A==",
+    "Ccf.Ck.Utilities.Profiling/6.0.8": {
+      "sha512": "byymLLwq3sfJNzIls1yD5g3csgcGTGWe35uFZAk/Qhh3suFa19ZI3sIIiTcQ4FpzPTmDXNsvpc9BHF+ujDdaDQ==",
       "type": "package",
-      "path": "ccf.ck.utilities.profiling/6.0.7",
+      "path": "ccf.ck.utilities.profiling/6.0.8",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "ccf.ck.utilities.profiling.6.0.7.nupkg.sha512",
+        "ccf.ck.utilities.profiling.6.0.8.nupkg.sha512",
         "ccf.ck.utilities.profiling.nuspec",
         "lib/net6.0/Ccf.Ck.Utilities.Profiling.dll"
       ]
@@ -2268,10 +2268,10 @@
         "mailkit.nuspec"
       ]
     },
-    "Microsoft.AspNetCore.Authentication.OpenIdConnect/6.0.7": {
-      "sha512": "oWz+qlt2U7DHIdQVHlnLy8wMWLi89+2Tm+iys5R+HgoEUZhkHuGv1SuTMWZEXhZjf/v9UmhYym44ZE4esn/ULg==",
+    "Microsoft.AspNetCore.Authentication.OpenIdConnect/6.0.10": {
+      "sha512": "4WeVZKSmFha/qIN+NuiC1xASdFHT5aeFy2fEcwVk2zLqMoqCrv5C2/KEJKgOEQxpuJJgX/lQISR3jBvlmPlv5Q==",
       "type": "package",
-      "path": "microsoft.aspnetcore.authentication.openidconnect/6.0.7",
+      "path": "microsoft.aspnetcore.authentication.openidconnect/6.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2279,7 +2279,7 @@
         "THIRD-PARTY-NOTICES.TXT",
         "lib/net6.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.dll",
         "lib/net6.0/Microsoft.AspNetCore.Authentication.OpenIdConnect.xml",
-        "microsoft.aspnetcore.authentication.openidconnect.6.0.7.nupkg.sha512",
+        "microsoft.aspnetcore.authentication.openidconnect.6.0.10.nupkg.sha512",
         "microsoft.aspnetcore.authentication.openidconnect.nuspec"
       ]
     },
@@ -2515,10 +2515,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.DependencyInjection/6.0.0": {
-      "sha512": "k6PWQMuoBDGGHOQTtyois2u4AwyVcIwL2LaSLlTZQm2CYcJ1pxbt6jfAnpWmzENA/wfrYRI/X9DTLoUkE4AsLw==",
+    "Microsoft.Extensions.DependencyInjection/6.0.1": {
+      "sha512": "vWXPg3HJQIpZkENn1KWq8SfbqVujVD7S7vIAyFXXqK5xkf1Vho+vG0bLBCHxU36lD1cLLtmGpfYf0B3MYFi9tQ==",
       "type": "package",
-      "path": "microsoft.extensions.dependencyinjection/6.0.0",
+      "path": "microsoft.extensions.dependencyinjection/6.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2535,7 +2535,7 @@
         "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.xml",
         "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll",
         "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.xml",
-        "microsoft.extensions.dependencyinjection.6.0.0.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.6.0.1.nupkg.sha512",
         "microsoft.extensions.dependencyinjection.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5873,8 +5873,8 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Ccf.Ck.NodePlugins.Base >= 6.0.7",
-      "Ccf.Ck.SysPlugins.Data.Base >= 6.0.7",
+      "Ccf.Ck.NodePlugins.Base >= 6.0.8",
+      "Ccf.Ck.SysPlugins.Data.Base >= 6.0.8",
       "QuickJS.NET >= 0.0.3"
     ]
   },
@@ -5927,11 +5927,11 @@
         "dependencies": {
           "Ccf.Ck.NodePlugins.Base": {
             "target": "Package",
-            "version": "[6.0.7, )"
+            "version": "[6.0.8, )"
           },
           "Ccf.Ck.SysPlugins.Data.Base": {
             "target": "Package",
-            "version": "[6.0.7, )"
+            "version": "[6.0.8, )"
           },
           "QuickJS.NET": {
             "target": "Package",

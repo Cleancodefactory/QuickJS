@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ccf.Ck.NodePlugins.Base" Version="6.0.7" />
-    <PackageReference Include="Ccf.Ck.SysPlugins.Data.Base" Version="6.0.7" />
+    <PackageReference Include="Ccf.Ck.NodePlugins.Base" Version="6.0.8" />
+    <PackageReference Include="Ccf.Ck.SysPlugins.Data.Base" Version="6.0.8" />
     <PackageReference Include="QuickJS.NET" Version="0.0.3" />
   </ItemGroup>
 

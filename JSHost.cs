@@ -11,11 +11,18 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
     public class JSHost : IDisposable {
         private bool disposedValue;
         private QuickJSRuntime _runtime = null;
+        private QuickJSContext _conteext = null;
 
         protected bool InitContext() {
-            _runtime = new QuickJSRuntime();
-            _runtime.StdInitHandlers();
+            try {
+                _runtime = new QuickJSRuntime();
+                _runtime.StdInitHandlers();
 
+                return true;
+            } catch (Exception e) {
+                _runtime = null;
+                return false;
+            }
         }
 
 

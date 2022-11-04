@@ -48,11 +48,11 @@
           "dependencies": {
             "Ccf.Ck.NodePlugins.Base": {
               "target": "Package",
-              "version": "[6.0.7, )"
+              "version": "[6.0.8, )"
             },
             "Ccf.Ck.SysPlugins.Data.Base": {
               "target": "Package",
-              "version": "[6.0.7, )"
+              "version": "[6.0.8, )"
             },
             "QuickJS.NET": {
               "target": "Package",
