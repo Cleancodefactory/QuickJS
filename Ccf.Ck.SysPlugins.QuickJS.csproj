@@ -3,7 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +12,10 @@
     <PackageReference Include="Ccf.Ck.SysPlugins.Data.Base" Version="6.0.8" />
     <PackageReference Include="QuickJS.NET" Version="0.0.3" />
   </ItemGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<OutputPath>..\..\Modules\_PluginsReferences</OutputPath>
+	</PropertyGroup>
 
   <ItemGroup>
     <None Update="runtimes\linux-x64\native\libquickjs.so">
