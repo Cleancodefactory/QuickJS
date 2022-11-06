@@ -6,7 +6,6 @@ using QuickJS.Native;
 using Ccf.Ck.SysPlugins.Interfaces;
 using Ccf.Ck.SysPlugins.Data.Base;
 
-
 namespace Ccf.Ck.SysPlugins.QuickJS {
     public class QuickJSImp : DataLoaderBase<QuickJSScopeContext> {
         protected override void ExecuteRead(IDataLoaderReadContext execContext) {

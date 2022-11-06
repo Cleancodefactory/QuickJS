@@ -21,7 +21,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 _context = _runtime.CreateContext();
                 _context.StdAddHelpers();
 
-                (_context.EvalFile(file, Encoding.ASCII, JSEvalFlags.Module | JSEvalFlags.Strip) as IDisposable)?.Dispose();
+                (_context.EvalFile(file, Encoding.ASCII /*, JSEvalFlags.Module | JSEvalFlags.Strip*/) as IDisposable)?.Dispose();
 
                 return true;
             } catch (Exception e) {

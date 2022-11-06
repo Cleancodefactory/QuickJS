@@ -13,8 +13,8 @@ using Ccf.Ck.SysPlugins.Interfaces.ContextualBasket;
 
 namespace Ccf.Ck.SysPlugins.QuickJS {
     public class QuickJSScopeContext : DataLoaderScopedContextBase, IPluginsSynchronizeContextScopedEx, ITransactionScope, IContextualBasketConsumer {
-        public string? PluginName { get; set; }
-        public string? ModuleName { get; set; }
+        public string PluginName { get; set; }
+        public string ModuleName { get; set; }
 
         public KraftGlobalConfigurationSettings KraftGlobalConfigurationSettings => ProcessingContext.InputModel.KraftGlobalConfigurationSettings;
         private IProcessingContext ProcessingContext { get;  set; }
