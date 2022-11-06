@@ -10,7 +10,7 @@
 
 ### Actionscript ###
 # Build and Release Folders
-# bin/
+bin/
 bin-debug/
 bin-release/
 [Oo]bj/ # FlashDevelop obj
@@ -318,7 +318,7 @@ __pycache__/
 
 
 ### XamarinStudio ###
-# obj/
+obj/
 
 
 ### Node ###
