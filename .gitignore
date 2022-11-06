@@ -510,4 +510,4 @@ build/
 /Modules/PharmaHelpAdmin/Data/NhifData.sqlite
 .vs/Ccf.Ck.NodePlugins.QuickJS/v17/.suo
 !runtimes/**
-# /.vs
+/.vs
