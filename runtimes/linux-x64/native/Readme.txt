@@ -1,0 +1,1 @@
+Precompiled binaries of quickjs library for windows and linux
