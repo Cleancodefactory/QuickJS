@@ -5,6 +5,9 @@ using QuickJS;
 using QuickJS.Native;
 using Ccf.Ck.SysPlugins.Interfaces;
 using Ccf.Ck.SysPlugins.Data.Base;
+using System.Text.RegularExpressions;
+using Ccf.Ck.Models.Resolvers;
+using System.Globalization;
 
 namespace Ccf.Ck.SysPlugins.QuickJS {
     public class QuickJSImp : DataLoaderBase<QuickJSScopeContext> {
@@ -25,6 +28,81 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             // TODO lets see if it works and then ...
             throw new NotImplementedException();
 
+        }
+        private static readonly Regex _regexFName = new Regex(@"^\s*([a-zA-Z][a-zA-Z0-9_]+)\s*\(",RegexOptions.Singleline);
+        private static readonly Regex _regexArguments = new Regex(@"\s*(?:(true|false|null)|([a-zA-Z_][a-zA-Z0-9_]*)|(?:\'((?:\\'|[^\'])*)\')|([\+\-]?\d+(?:\.\d*)?))?\s*(,|\))", RegexOptions.Singleline);
+
+        private enum Term
+        {
+            literal = 1,
+            identifier = 2,
+            text = 3,
+            number = 4,
+            delimiter = 5
+        }
+        /// <summary>
+        /// Parses the query parameter as a single function call
+        /// </summary>
+        /// <param name="fname"></param>
+        /// <param name="args"></param>
+        protected void ParseQuery(string query,out string fname, List<object> args, IDataLoaderContext ctx)
+        {
+            if (string.IsNullOrWhiteSpace(query)) throw new ArgumentNullException("one of query or loadquery is required");
+            Match match = _regexFName.Match(query);
+            if (match.Success && match.Groups[1].Success) {
+                fname = match.Groups[1].Value;
+                match = _regexArguments.Match(query, match.Length);
+                while (match.Success)
+                {
+                    for (int i = 1; i < match.Groups.Count - 1; i++) {
+                        if (match.Groups[i].Success) {
+                            string current = match.Groups[i].Value;
+                            switch ((Term)i) {
+                                case Term.literal:
+                                    if (current == "true") {
+                                        args.Add(true);
+                                    } else if (current == "false") {
+                                        args.Add(false);
+                                    } else if (current == "null") {
+                                        args.Add(null);
+                                    } else {
+                                        throw new Exception("Syntax error");
+                                    }
+                                goto nextArg;
+                                case Term.identifier:
+                                    ParameterResolverValue val = ctx.Evaluate(current);
+                                    args.Add(val.Value);
+                                goto nextArg;
+                                case Term.text:
+                                    args.Add(current.Replace("\\'", "'"));
+                                goto nextArg;
+                                case Term.number:
+                                    if (current.IndexOf(".") >= 0)
+                                    {
+                                        if (double.TryParse(current, NumberStyles.Any ,CultureInfo.InvariantCulture, out double d)) {
+                                            args.Add(d);
+                                        }
+                                    }
+                                goto nextArg;
+
+                            }
+                        }
+                    }
+                    nextArg:
+                    if (match.Groups[(int)Term.delimiter].Success)
+                    {
+                        if (match.Groups[(int)Term.delimiter].Value == ")")
+                        {
+                            // complete
+                            return;
+                        }
+                    }
+                    match = match.NextMatch();
+                }
+                throw new ArgumentException("Syntax error in the query for QuickJS plugin. Missing closing bracket.");
+            } else {
+                throw new ArgumentException("Syntax error in the query for QuickJS plugin. It must be a function call with arguments from the node parameters or constants");
+            }
         }
     }
 }

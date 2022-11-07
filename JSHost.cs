@@ -14,33 +14,59 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
         private QuickJSRuntime _runtime = null;
         private QuickJSContext _context = null;
 
+        public string LastError { get; private set; }
+
         public bool InitContext(string file) {
             try {
                 _runtime = new QuickJSRuntime();
                 _runtime.StdInitHandlers();
                 _context = _runtime.CreateContext();
                 _context.StdAddHelpers();
-
-                (_context.EvalFile(file, Encoding.ASCII , JSEvalFlags.Module | JSEvalFlags.Strip) as IDisposable)?.Dispose();
+                //_context.InitModuleStd("std");
+                //_context.InitModuleOS("os");
+                //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
+                (_context.EvalFile(file, Encoding.ASCII , JSEvalFlags.Global) as IDisposable)?.Dispose();
                 _runtime.RunStdLoop(_context);
                 return true;
             } catch (Exception e) {
-                _runtime = null;
+                UnInitContext();
+                LastError = e.Message;
                 return false;
+            }
+        }
+        private void UnInitContext()
+        {
+            if (_runtime != null)
+            {
+                if (_context != null)
+                {
+                    _context.Dispose();
+                    _context = null;
+                }
+                _runtime.StdFreeHandlers();
+                _runtime.Dispose();
+                _runtime = null;
+                
             }
         }
 
         private object CallGlobalLow(string fname, params JSValue[] args) {
-            QuickJSValue glob = _context.GetGlobal();
-            if (glob == null) return JSValue.Null;
-            QuickJSValue func = (QuickJSValue)glob.GetProperty(fname) ;
-            object result = func.Call(glob, args);
-            return result;
-            
-            // QuickJSNativeApi.JS_Call()
-            
+            LastError = null;
+            try
+            {
+               using QuickJSValue glob = _context.GetGlobal();
+                if (glob == null) return JSValue.Null;
+               using QuickJSValue func = (QuickJSValue)glob.GetProperty(fname);
+                object result = func.Call(glob, args);
+                return result;
+            } catch (Exception ex)
+            {
+                LastError = ex.Message;
+                return null;
+            }
         }
         public object CallGlobal(string fname, params object[] args) {
+            // TODO: some disposing may be
             var jargs = args.Select(arg => {
                 if (arg == null) return JSValue.Null;
                 return arg switch {
@@ -55,7 +81,12 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 };
                 
             }).ToArray();
-            return CallGlobalLow(fname, jargs);
+            var result = CallGlobalLow(fname, jargs);
+            if (LastError != null)
+            {
+                throw new QuickJSException(LastError);
+            }
+            return result;
         }
 
         protected virtual void Dispose(bool disposing) {
@@ -65,6 +96,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                UnInitContext();
                 // TODO: set large fields to null
                 disposedValue = true;
             }

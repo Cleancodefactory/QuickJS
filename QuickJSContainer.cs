@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuickJS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,7 +35,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     JSHosts[key] = host; // Put it in the collection
                     return host;
                 } else {
-                    return null;
+                    throw new QuickJSException(host.LastError);
                 }
             }
         }
