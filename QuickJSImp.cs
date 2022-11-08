@@ -8,20 +8,15 @@ using Ccf.Ck.SysPlugins.Data.Base;
 using System.Text.RegularExpressions;
 using Ccf.Ck.Models.Resolvers;
 using System.Globalization;
+using static Ccf.Ck.Models.NodeSet.ADOInfo;
 
 namespace Ccf.Ck.SysPlugins.QuickJS {
     public class QuickJSImp : DataLoaderBase<QuickJSScopeContext> {
         protected override void ExecuteRead(IDataLoaderReadContext execContext) {
-            var scope = execContext.OwnContextScoped as QuickJSScopeContext;
-            if (scope != null) {
-                JSHost host = scope.Host(); // This will invoke loading of the JS engine and loading the file(s) when called for the first time.
-                if (host != null) {
-                    object result = host.CallGlobal("main",2);
-                    execContext.Results.Add(new Dictionary<string,object>() {{"result", result}});
-                    return;
-                }
+            var r = ExecuteQuery(execContext);
+            if (execContext is INodePluginContextWithResults res) {
+                res.Results.Add(new Dictionary<string, object>() { { "result", r } });
             }
-            throw new NullReferenceException("The scope context or host of QuickJS is not available. Check if it is loaded correctly.");
         }
 
         protected override void ExecuteWrite(IDataLoaderWriteContext execContext) {
@@ -31,6 +26,30 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
         }
         private static readonly Regex _regexFName = new Regex(@"^\s*([a-zA-Z][a-zA-Z0-9_]+)\s*\(",RegexOptions.Singleline);
         private static readonly Regex _regexArguments = new Regex(@"\s*(?:(true|false|null)|([a-zA-Z_][a-zA-Z0-9_]*)|(?:\'((?:\\'|[^\'])*)\')|([\+\-]?\d+(?:\.\d*)?))?\s*(,|\))", RegexOptions.Singleline);
+
+
+        #region Utilities
+
+        protected object ExecuteQuery(IDataLoaderContext execContext) {
+            var scope = execContext.OwnContextScoped as QuickJSScopeContext;
+            if (scope != null) {
+                JSHost host = scope.Host(); // This will invoke loading of the JS engine and loading the file(s) when called for the first time.
+                if (host != null) {
+                    string fname = null;
+                    List<object> args = new List<object>();
+                    // What to call
+                    string query = GetQuery(execContext);
+                    if (string.IsNullOrEmpty(query)) {
+                        // TODO Maybe pass it through later?
+                        throw new Exception("query or load query is required in nodes where quickjs plugin is used.");
+                    }
+                    ParseQuery(query, out fname, args, execContext);
+                    object result = host.CallGlobal(fname, args.ToArray());
+                    return result;
+                }
+            }
+            throw new NullReferenceException("The scope context or host of QuickJS is not available. Check if it is loaded correctly.");
+        }
 
         private enum Term
         {
@@ -77,10 +96,13 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                                     args.Add(current.Replace("\\'", "'"));
                                 goto nextArg;
                                 case Term.number:
-                                    if (current.IndexOf(".") >= 0)
-                                    {
-                                        if (double.TryParse(current, NumberStyles.Any ,CultureInfo.InvariantCulture, out double d)) {
+                                    if (current.IndexOf(".") >= 0) {
+                                        if (double.TryParse(current, NumberStyles.Any, CultureInfo.InvariantCulture, out double d)) {
                                             args.Add(d);
+                                        }
+                                    } else {
+                                        if (int.TryParse(current, NumberStyles.Any, CultureInfo.InvariantCulture, out int l)) {
+                                            args.Add(l);
                                         }
                                     }
                                 goto nextArg;
@@ -104,5 +126,6 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 throw new ArgumentException("Syntax error in the query for QuickJS plugin. It must be a function call with arguments from the node parameters or constants");
             }
         }
+        #endregion
     }
 }

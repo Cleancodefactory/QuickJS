@@ -70,16 +70,14 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             var jargs = args.Select(arg => {
                 if (arg == null) return JSValue.Null;
                 return arg switch {
-                    string => JSValue.Create(_context.NativeInstance, arg as string),
-                    int => JSValue.Create((int)arg),
-                    double => JSValue.Create((double)arg),
-                    uint => JSValue.Create((uint)arg),
-                    bool => JSValue.Create((bool)arg),
-                    long => JSValue.Create((long)arg),
-                    _ => JSValue.Null
-
+                    string s => JSValue.Create(_context.NativeInstance, arg as string),
+                    int i => JSValue.Create(i),
+                    double d => JSValue.Create(d),
+                    uint u => JSValue.Create(u),
+                    bool b => JSValue.Create(b),
+                    long l => JSValue.Create(l),
+                    _ => throw new NotSupportedException("Unsupported argument type")
                 };
-                
             }).ToArray();
             var result = CallGlobalLow(fname, jargs);
             if (LastError != null)
