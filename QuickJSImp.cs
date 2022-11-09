@@ -8,13 +8,63 @@ using Ccf.Ck.SysPlugins.Data.Base;
 using System.Text.RegularExpressions;
 using Ccf.Ck.Models.Resolvers;
 using System.Globalization;
-using static Ccf.Ck.Models.NodeSet.ADOInfo;
+using Ccf.Ck.Utilities.Json;
+
 
 namespace Ccf.Ck.SysPlugins.QuickJS {
     public class QuickJSImp : DataLoaderBase<QuickJSScopeContext> {
         protected override void ExecuteRead(IDataLoaderReadContext execContext) {
             var r = ExecuteQuery(execContext);
-            if (execContext is INodePluginContextWithResults res) {
+            if (execContext is INodePluginContextWithResults res && execContext.OwnContextScoped is QuickJSScopeContext scope) {
+                switch (scope.Mode) {
+                    case ENodeMode.Node:
+                        throw new NotImplementedException("Not implemented yet!");
+                    case ENodeMode.SingleValue:
+                        res.Results.Add(new Dictionary<string, object>() { { scope.PropertyName,
+                                r switch {
+                                    int i => i,
+                                    double d => d,
+                                    string s => s,
+                                    bool b => b,
+                                    null => null,
+                                    _ => throw new Exception("Type cannot be converted to simple value, try AsJson mode")
+
+                                }
+                         } });
+                        break;
+                    case ENodeMode.Jsonparse:
+                        if (r == null) {
+                            res.Results.Add(new Dictionary<string, object>() { { scope.PluginName, null } });
+                        } else if (r is string s) {
+                            object result = DictionaryStringObjectJson.Deserialize(s);
+                            if (result is Dictionary<string, object> dso) {
+                                res.Results.Add(dso);
+                            } else if (result is List<object> list) {
+                                foreach (var item in list) {
+                                    if (item is Dictionary<string, object> dict) {
+                                        res.Results.Add(dict);
+                                    }
+                                }
+                            } else {
+                                res.Results.Add(new Dictionary<string, object>() { { scope.PropertyName,
+                                        result switch {
+                                            int i => i,
+                                            double d => d,
+                                            bool b => b,
+                                            _ => throw new Exception($"Unsupported type returned by the javascript {GetQuery(execContext)}")
+                                        }
+                                    } }); 
+                            }
+                        }
+                    break;
+                    case ENodeMode.Asjson:
+                        if (r is QuickJSValue jsval) {
+                            res.Results.Add(new Dictionary<string, object>() { { scope.PropertyName, jsval.ToJSON() } });
+                        } else {
+                            throw new Exception("In AsJson mode the returned data must be object or array of objects.");
+                        }
+                    break;
+                }
                 res.Results.Add(new Dictionary<string, object>() { { "result", r } });
             }
         }

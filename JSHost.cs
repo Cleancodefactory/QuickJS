@@ -54,9 +54,9 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             LastError = null;
             try
             {
-               using QuickJSValue glob = _context.GetGlobal();
+                using QuickJSValue glob = _context.GetGlobal();
                 if (glob == null) return JSValue.Null;
-               using QuickJSValue func = (QuickJSValue)glob.GetProperty(fname);
+                using QuickJSValue func = (QuickJSValue)glob.GetProperty(fname);
                 object result = func.Call(glob, args);
                 return result;
             } catch (Exception ex)
