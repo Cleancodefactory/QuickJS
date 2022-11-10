@@ -3,24 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ccf.Ck.Utilities.Generic;
 using Org.BouncyCastle.Asn1.X509.Qualified;
 using QuickJS;
 using QuickJS.Native;
+using SixLabors.ImageSharp.ColorSpaces;
 
 
 namespace Ccf.Ck.SysPlugins.QuickJS {
     public class JSHost : IDisposable {
         private bool disposedValue;
         private QuickJSRuntime _runtime = null;
+        private JSRuntime? _runtimeNative = null;
         private QuickJSContext _context = null;
+        private JSContext? _contextNative = null;
+
+        private readonly int _stackSize = QuickJSRuntime.DefaultStackSize;
+        private readonly int _memoryLimit = QuickJSRuntime.DefaultMemoryLimit;
+        private readonly int _gcThreshold = QuickJSRuntime.DefaultGCThreshold;
 
         public string LastError { get; private set; }
 
+        public JSHost(int? stackSize = null ,int? memoryLimit = null,int? gcThreshold = null) {
+            if (stackSize != null) _stackSize = stackSize.Value;
+            if (memoryLimit != null) _memoryLimit = memoryLimit.Value;
+            if (gcThreshold != null) _gcThreshold = gcThreshold.Value;
+        }
+
         public bool InitContext(string file) {
             try {
-                _runtime = new QuickJSRuntime();
+                _runtime = new QuickJSRuntime(_memoryLimit, _gcThreshold, _stackSize);
+                _runtimeNative = _runtime.NativeInstance;
                 _runtime.StdInitHandlers();
                 _context = _runtime.CreateContext();
+                _contextNative = _context.NativeInstance;
                 _context.StdAddHelpers();
                 //_context.InitModuleStd("std");
                 //_context.InitModuleOS("os");
@@ -54,10 +70,14 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             LastError = null;
             try
             {
+                QuickJSNativeApi.JS_UpdateStackTop(_runtimeNative.Value);
                 using QuickJSValue glob = _context.GetGlobal();
                 if (glob == null) return JSValue.Null;
                 using QuickJSValue func = (QuickJSValue)glob.GetProperty(fname);
                 object result = func.Call(glob, args);
+                foreach (JSValue v in args) {
+                    QuickJSNativeApi.JS_FreeValue(_contextNative.Value, v);
+                }
                 return result;
             } catch (Exception ex)
             {

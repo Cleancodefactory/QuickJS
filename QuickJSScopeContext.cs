@@ -19,6 +19,9 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
         public const string CONF_FILE = "file";
         public const string CONF_MODE = "mode";
         public const string CONF_PROPNAME = "propertyname";
+        public const string CONF_STACKSIZE = "stack";
+        public const string CONF_MEMORYSIZE = "memory";
+        public const string CONF_GCTHRESHOLD = "gcthreshold";
         public const string PROPNAME_DEFAULT = "data";
 
         public KraftGlobalConfigurationSettings KraftGlobalConfigurationSettings => ProcessingContext.InputModel.KraftGlobalConfigurationSettings;
@@ -31,7 +34,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 var key = ModuleName + PluginName;
                 string moduleRoot = System.IO.Path.Combine(KraftGlobalConfigurationSettings.GeneralSettings.ModulesRootFolder(ProcessingContext.InputModel.Module), ProcessingContext.InputModel.Module);
                 var file = CustomSettings[CONF_FILE].Replace("@moduleroot@", moduleRoot);
-                return QuickJSContainer.Instance.GetOrCreate(key, file);
+                return QuickJSContainer.Instance.GetOrCreate(key, file,StackSize,MemorySize,GCThreshold);
             } else {
                 return null;
             }
@@ -57,6 +60,26 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 return PROPNAME_DEFAULT;
             }
         }
+        private int? GetMemSetting(string setting_name, int mult = 1024) {
+            if (CustomSettings.ContainsKey(setting_name)) {
+                int.TryParse(CustomSettings[setting_name], out int parsed);
+                return (parsed > 0)?parsed * mult:null;
+            }
+            return null;
+        }
+        /// <summary>
+        /// Reads the stack size from the Configuration.json in K bytes
+        /// Returns null if missing or incorrect, passing null to JSHost will use the default size
+        /// </summary>
+        public int? StackSize => GetMemSetting(CONF_STACKSIZE, 1024);
+        /// <summary>
+        /// Memory size in KBytes
+        /// </summary>
+        public int? MemorySize => GetMemSetting(CONF_MEMORYSIZE, 1024);
+        /// <summary>
+        /// GC Threshold in KBytes
+        /// </summary>
+        public int? GCThreshold => GetMemSetting(CONF_GCTHRESHOLD, 1024);
         #endregion
 
         #region Transaction (not used)

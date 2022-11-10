@@ -27,10 +27,10 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
         /// <param name="key"></param>
         /// <param name="file"></param>
         /// <returns></returns>
-        public JSHost Create(string key, string file) {
+        public JSHost Create(string key, string file, int? stackSize = null, int? memoryLimit = null, int? gcThreshold = null) {
             lock (lockInstance) {
                 if (JSHosts.ContainsKey(key)) return null;
-                JSHost host = new JSHost();
+                JSHost host = new JSHost(stackSize, memoryLimit, gcThreshold);
                 if (host.InitContext(file)) {
                     JSHosts[key] = host; // Put it in the collection
                     return host;
@@ -39,10 +39,17 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 }
             }
         }
-        public JSHost GetOrCreate(string key, string file) {
+        public JSHost GetOrCreate(string key, string file, int? stackSize = null, int? memoryLimit = null, int? gcThreshold = null) {
             if (JSHosts.ContainsKey(key)) return JSHosts[key];
-            return Create(key, file);
+            return Create(key, file, stackSize, memoryLimit, gcThreshold);
         }
-        
+        public JSHost ReCreate(string key, string file, int? stackSize = null, int? memoryLimit = null, int? gcThreshold = null) {
+            if (JSHosts.ContainsKey(key)) {
+                JSHosts[key].Dispose();
+                JSHosts.Remove(key);
+            }
+            return Create(key, file, stackSize, memoryLimit, gcThreshold);
+        }
+
     }
 }
