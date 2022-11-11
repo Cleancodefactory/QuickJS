@@ -17,6 +17,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
         private JSRuntime? _runtimeNative = null;
         private QuickJSContext _context = null;
         private JSContext? _contextNative = null;
+        private object _locker = new object();
 
         private readonly int _stackSize = QuickJSRuntime.DefaultStackSize;
         private readonly int _memoryLimit = QuickJSRuntime.DefaultMemoryLimit;
@@ -31,21 +32,51 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
         }
 
         public bool InitContext(string file) {
+            if (_runtime!= null) throw new InvalidOperationException("The quickjs is alredy initialized in this JSHost.");
             try {
-                _runtime = new QuickJSRuntime(_memoryLimit, _gcThreshold, _stackSize);
-                _runtimeNative = _runtime.NativeInstance;
-                _runtime.StdInitHandlers();
-                _context = _runtime.CreateContext();
-                _contextNative = _context.NativeInstance;
-                _context.StdAddHelpers();
-                //_context.InitModuleStd("std");
-                //_context.InitModuleOS("os");
-                //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
-                (_context.EvalFile(file, Encoding.ASCII , JSEvalFlags.Global) as IDisposable)?.Dispose();
-                _runtime.RunStdLoop(_context);
+                lock (_locker) {
+                    _runtime = new QuickJSRuntime(_memoryLimit, _gcThreshold, _stackSize);
+                    _runtimeNative = _runtime.NativeInstance;
+                    _runtime.StdInitHandlers();
+                    _context = _runtime.CreateContext();
+                    _contextNative = _context.NativeInstance;
+                    _context.StdAddHelpers();
+                    //_context.InitModuleStd("std");
+                    //_context.InitModuleOS("os");
+                    //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
+                    (_context.EvalFile(file, Encoding.ASCII, JSEvalFlags.Global) as IDisposable)?.Dispose();
+                    _runtime.RunStdLoop(_context);
+                }
                 return true;
             } catch (Exception e) {
-                UnInitContext();
+                lock (_locker) {
+                    UnInitContext();
+                }
+                LastError = e.Message;
+                return false;
+            }
+        }
+        public bool InitContextFromSource(string script, string filename = null) {
+            if (_runtime != null) throw new InvalidOperationException("The quickjs is alredy initialized in this JSHost.");
+            try {
+                lock (_locker) {
+                    _runtime = new QuickJSRuntime(_memoryLimit, _gcThreshold, _stackSize);
+                    _runtimeNative = _runtime.NativeInstance;
+                    _runtime.StdInitHandlers();
+                    _context = _runtime.CreateContext();
+                    _contextNative = _context.NativeInstance;
+                    _context.StdAddHelpers();
+                    //_context.InitModuleStd("std");
+                    //_context.InitModuleOS("os");
+                    //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
+                    (_context.Eval(script, filename == null ? "<root>", JSValue.Null, JSEvalFlags.Global) as IDisposable)?.Dispose();
+                    _runtime.RunStdLoop(_context);
+                }
+                return true;
+            } catch (Exception e) {
+                lock (_locker) {
+                    UnInitContext();
+                }
                 LastError = e.Message;
                 return false;
             }
@@ -70,11 +101,13 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             LastError = null;
             try
             {
-                QuickJSNativeApi.JS_UpdateStackTop(_runtimeNative.Value);
-                using QuickJSValue glob = _context.GetGlobal();
-                if (glob == null) return JSValue.Null;
-                using QuickJSValue func = (QuickJSValue)glob.GetProperty(fname);
-                object result = func.Call(glob, args);
+                lock (_locker) {
+                    QuickJSNativeApi.JS_UpdateStackTop(_runtimeNative.Value);
+                    using QuickJSValue glob = _context.GetGlobal();
+                    if (glob == null) return JSValue.Null;
+                    using QuickJSValue func = (QuickJSValue)glob.GetProperty(fname);
+                    object result = func.Call(glob, args);
+                }
                 foreach (JSValue v in args) {
                     QuickJSNativeApi.JS_FreeValue(_contextNative.Value, v);
                 }
