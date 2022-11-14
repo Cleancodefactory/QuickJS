@@ -99,6 +99,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
 
         private object CallGlobalLow(string fname, params JSValue[] args) {
             LastError = null;
+            object result = null;
             try
             {
                 lock (_locker) {
@@ -106,7 +107,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     using QuickJSValue glob = _context.GetGlobal();
                     if (glob == null) return JSValue.Null;
                     using QuickJSValue func = (QuickJSValue)glob.GetProperty(fname);
-                    object result = func.Call(glob, args);
+                    result = func.Call(glob, args);
                 }
                 foreach (JSValue v in args) {
                     QuickJSNativeApi.JS_FreeValue(_contextNative.Value, v);
