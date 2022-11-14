@@ -56,31 +56,31 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 return false;
             }
         }
-        public bool InitContextFromSource(string script, string filename = null) {
-            if (_runtime != null) throw new InvalidOperationException("The quickjs is alredy initialized in this JSHost.");
-            try {
-                lock (_locker) {
-                    _runtime = new QuickJSRuntime(_memoryLimit, _gcThreshold, _stackSize);
-                    _runtimeNative = _runtime.NativeInstance;
-                    _runtime.StdInitHandlers();
-                    _context = _runtime.CreateContext();
-                    _contextNative = _context.NativeInstance;
-                    _context.StdAddHelpers();
-                    //_context.InitModuleStd("std");
-                    //_context.InitModuleOS("os");
-                    //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
-                    (_context.Eval(script, filename == null ? "<root>", JSValue.Null, JSEvalFlags.Global) as IDisposable)?.Dispose();
-                    _runtime.RunStdLoop(_context);
-                }
-                return true;
-            } catch (Exception e) {
-                lock (_locker) {
-                    UnInitContext();
-                }
-                LastError = e.Message;
-                return false;
-            }
-        }
+        // public bool InitContextFromSource(string script, string filename = null) {
+        //     if (_runtime != null) throw new InvalidOperationException("The quickjs is alredy initialized in this JSHost.");
+        //     try {
+        //         lock (_locker) {
+        //             _runtime = new QuickJSRuntime(_memoryLimit, _gcThreshold, _stackSize);
+        //             _runtimeNative = _runtime.NativeInstance;
+        //             _runtime.StdInitHandlers();
+        //             _context = _runtime.CreateContext();
+        //             _contextNative = _context.NativeInstance;
+        //             _context.StdAddHelpers();
+        //             //_context.InitModuleStd("std");
+        //             //_context.InitModuleOS("os");
+        //             //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
+        //             (_context.Eval(script, filename == null ? "<root>", JSValue.Null, JSEvalFlags.Global) as IDisposable)?.Dispose();
+        //             _runtime.RunStdLoop(_context);
+        //         }
+        //         return true;
+        //     } catch (Exception e) {
+        //         lock (_locker) {
+        //             UnInitContext();
+        //         }
+        //         LastError = e.Message;
+        //         return false;
+        //     }
+        // }
         private void UnInitContext()
         {
             if (_runtime != null)
@@ -102,6 +102,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             object result = null;
             try
             {
+                object result;
                 lock (_locker) {
                     QuickJSNativeApi.JS_UpdateStackTop(_runtimeNative.Value);
                     using QuickJSValue glob = _context.GetGlobal();
