@@ -110,9 +110,9 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     using QuickJSValue func = (QuickJSValue)glob.GetProperty(fname);
                     result = func.Call(glob, args);
                 }
-                //foreach (JSValue v in args) {
-                //    QuickJSNativeApi.JS_FreeValue(_contextNative.Value, v);
-                //}
+                foreach (JSValue v in args) {
+                    QuickJSNativeApi.JS_FreeValue(_contextNative.Value, v);
+                }
                 QuickJSNativeApi.JS_RunGC(_runtimeNative.Value);
                 return result;
             } catch (Exception ex)
@@ -121,6 +121,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 return null;
             }
         }
+        string m_s = null;
         public object CallGlobal(string fname, params object[] args) {
             // TODO: some disposing may be
             var jargs = args.Select(arg => {
