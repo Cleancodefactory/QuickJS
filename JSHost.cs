@@ -56,6 +56,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 return false;
             }
         }
+        // Ok, what was the point of commenting this?
         // public bool InitContextFromSource(string script, string filename = null) {
         //     if (_runtime != null) throw new InvalidOperationException("The quickjs is alredy initialized in this JSHost.");
         //     try {
@@ -102,7 +103,6 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             object result = null;
             try
             {
-                object result;
                 lock (_locker) {
                     QuickJSNativeApi.JS_UpdateStackTop(_runtimeNative.Value);
                     using QuickJSValue glob = _context.GetGlobal();
