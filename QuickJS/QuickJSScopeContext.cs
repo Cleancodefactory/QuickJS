@@ -24,6 +24,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
         public const string CONF_MEMORYSIZE = "memory";
         public const string CONF_GCTHRESHOLD = "gcthreshold";
         public const string PROPNAME_DEFAULT = "data";
+        public const string CONF_BASEPATH = "basepath";
 
         public KraftGlobalConfigurationSettings KraftGlobalConfigurationSettings => ProcessingContext.InputModel.KraftGlobalConfigurationSettings;
         private IProcessingContext ProcessingContext { get; set; }
@@ -66,6 +67,16 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 }
                 return PROPNAME_DEFAULT;
             }
+        }
+        public string BasePath { 
+            get {
+                string moduleRoot = System.IO.Path.Combine(KraftGlobalConfigurationSettings.GeneralSettings.ModulesRootFolder(ProcessingContext.InputModel.Module), ProcessingContext.InputModel.Module);
+                if (CustomSettings.ContainsKey(CONF_BASEPATH)) {
+                    return CustomSettings[CONF_BASEPATH].Replace("@moduleroot@", moduleRoot);
+                } else {
+                    return null;    
+                }
+            } 
         }
         private int? GetMemSetting(string setting_name, int mult = 1024) {
             if (CustomSettings.ContainsKey(setting_name)) {

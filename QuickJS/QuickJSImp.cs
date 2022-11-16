@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using Ccf.Ck.Models.Resolvers;
 using System.Globalization;
 using Ccf.Ck.Utilities.Json;
+using System.Configuration;
 
 
 namespace Ccf.Ck.SysPlugins.QuickJS {
@@ -73,8 +74,13 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             throw new NotImplementedException();
 
         }
+        // Appends a raw source or include a file
+        private static readonly Regex _regexAppendInclude = new Regex(@"^\s*#(include|append)\s+(?:([a-zA-Z_][a-zA-Z0-9_]*)|(?:\'((?:\\'|[^\'])*)\'))\s*;", RegexOptions.Multiline);
+        
+        
+
         private static readonly Regex _regexFName = new Regex(@"^\s*([a-zA-Z][a-zA-Z0-9_]+)\s*\(",RegexOptions.Singleline);
-        private static readonly Regex _regexArguments = new Regex(@"\s*(?:(true|false|null)|([a-zA-Z_][a-zA-Z0-9_]*)|(?:\'((?:\\'|[^\'])*)\')|([\+\-]?\d+(?:\.\d*)?))?\s*(,|\))", RegexOptions.Singleline);
+        private static readonly Regex _regexArguments = new Regex(@"\s*(?:(true|false|null)|([a-zA-Z_][a-zA-Z0-9_]*)|(?:\'((?:\\'|[^\'])*)\')|([\+\-]?\d+(?:\.\d*)?))?\s*(,|\)\s*;)", RegexOptions.Multiline);
 
 
         #region Utilities
@@ -105,6 +111,22 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             throw new NullReferenceException("The scope context or host of QuickJS is not available. Check if it is loaded correctly.");
         }
 
+        private string ReadIncludeFile(string file, IDataLoaderContext execContext) {
+            var scope = execContext.OwnContextScoped as QuickJSScopeContext;
+            if (scope == null) throw new Exception("QuickJS data loaderCannot obtain the scope context");
+            var basePath = scope.BasePath;
+            if (basePath != null) {
+                var filePath = Path.Combine(basePath, file);
+                if (File.Exists(filePath)) {
+                    var content = File.ReadAllText(filePath,Encoding.UTF8);
+                    return content;
+                } else {
+                    throw new FileNotFoundException($"{filePath} cannot be found");
+                }
+            } else {
+                throw new ConfigurationException("basepath is not configured. Cannot load file.");
+            }
+        }
         private enum Term
         {
             literal = 1,
@@ -118,10 +140,31 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
         /// </summary>
         /// <param name="fname"></param>
         /// <param name="args"></param>
-        protected void ParseQuery(string query,out string fname, List<object> args, IDataLoaderContext ctx)
+        protected void ParseQuery(string query,out string fname, List<object> args, JSHost host, IDataLoaderContext ctx)
         {
             if (string.IsNullOrWhiteSpace(query)) throw new ArgumentNullException("one of query or loadquery is required");
-            Match match = _regexFName.Match(query);
+            Match match;
+            match = _regexAppendInclude.Match(query);
+            while (match.Success) {
+                if (match.Groups[1].Success) {
+                    switch (match.Groups[1].Value) {
+                        case "include":
+                            if (match.Groups[2].Success) { // From parameter
+                                ParameterResolverValue file = ctx.Evaluate(match.Groups[2].Value);
+                                //host.`ReadIncludeFile(file);
+                            } else if (match.Groups[3].Success) { // From literal
+
+                            }
+
+                            break;
+                        case "append":
+                            break;
+                    }
+                }
+                match = match.NextMatch();
+            }
+
+            match = _regexFName.Match(query);
             if (match.Success && match.Groups[1].Success) {
                 fname = match.Groups[1].Value;
                 match = _regexArguments.Match(query, match.Length);
@@ -167,7 +210,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     nextArg:
                     if (match.Groups[(int)Term.delimiter].Success)
                     {
-                        if (match.Groups[(int)Term.delimiter].Value == ")")
+                        if (match.Groups[(int)Term.delimiter].Value.IndexOf(")") == 0)
                         {
                             // complete
                             return;
