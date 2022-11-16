@@ -1,0 +1,67 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0</TargetFrameworks>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>QuickJS</RootNamespace>
+    <Platforms>AnyCPU</Platforms>
+    <RuntimeIdentifiers>win-x86;win-x64;linux-x64</RuntimeIdentifiers>
+    <AssemblyOriginatorKeyFile>QuickJS.snk</AssemblyOriginatorKeyFile>
+    <SignAssembly Condition="Exists($(AssemblyOriginatorKeyFile))">true</SignAssembly>
+    <Configurations>Debug;Release;Nuget_Release</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>0.0.3.0</Version>
+    <Description>C# bindings for QuickJS, a small JavaScript engine by Fabrice Bellard and Charlie Gordon.</Description>
+    <PackageTags>QuickJS, JavaScript, ECMAScript, interpreter</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Authors></Authors>
+    <PackageProjectUrl>https://github.com/vmas/quickjs.net</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/vmas/quickjs.net</RepositoryUrl>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>
+      QuickJS 2021-03-27
+    </PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Nuget_Release'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|netstandard2.0|AnyCPU'">
+    <Optimize>True</Optimize>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.0|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="runtimes/win-x64/native/quickjs.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes/win-x86/native/quickjs.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x86/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="runtimes/linux-x64/native/libquickjs.so">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/linux-x64/native</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="QuickJS.NET.props">
+      <PackagePath>build/QuickJS.NET.props</PackagePath>
+    </Content>
+  </ItemGroup>
+
+</Project>
