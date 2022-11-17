@@ -75,12 +75,12 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
 
         }
         // Appends a raw source or include a file
-        private static readonly Regex _regexAppendInclude = new Regex(@"^\s*#(include|append)\s+(?:([a-zA-Z_][a-zA-Z0-9_]*)|(?:\'((?:\\'|[^\'])*)\'))\s*;", RegexOptions.Multiline);
+        private static readonly Regex _regexAppendInclude = new Regex(@"\s*#(include|append)\s+(?:([a-zA-Z_][a-zA-Z0-9_]*)|(?:\'((?:\\'|[^\'])*)\'))\s*;", RegexOptions.Multiline);
         
         
 
-        private static readonly Regex _regexFName = new Regex(@"^\s*([a-zA-Z][a-zA-Z0-9_]+)\s*\(",RegexOptions.Singleline);
-        private static readonly Regex _regexArguments = new Regex(@"\s*(?:(true|false|null)|([a-zA-Z_][a-zA-Z0-9_]*)|(?:\'((?:\\'|[^\'])*)\')|([\+\-]?\d+(?:\.\d*)?))?\s*(,|\)\s*;)", RegexOptions.Multiline);
+        private static readonly Regex _regexFName = new Regex(@"\s*([a-zA-Z][a-zA-Z0-9_]+)\s*\(",RegexOptions.Multiline);
+        private static readonly Regex _regexArguments = new Regex(@"\s*(?:(true|false|null)|([a-zA-Z_][a-zA-Z0-9_]*)|(?:\'((?:\\'|[^\'])*)\')|([\+\-]?\d+(?:\.\d*)?))?\s*(,|\)\s*(?=;|$))", RegexOptions.Multiline);
 
 
         #region Utilities
@@ -102,7 +102,8 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                         // TODO Maybe pass it through later?
                         throw new Exception("query or load query is required in nodes where quickjs plugin is used.");
                     }
-                    ParseQuery(query, out fname, args, execContext);
+                    ParseQuery(query, out fname, args, host, execContext);
+                    host.RunInitLoop();
                     object result = host.CallGlobal(fname, args.ToArray());
                     return result;
                 }
@@ -124,7 +125,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     throw new FileNotFoundException($"{filePath} cannot be found");
                 }
             } else {
-                throw new ConfigurationException("basepath is not configured. Cannot load file.");
+                throw new Exception("basepath is not configured. Cannot load file.");
             }
         }
         private enum Term
@@ -136,7 +137,9 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             delimiter = 5
         }
         /// <summary>
-        /// Parses the query parameter as a single function call
+        /// Parses the query parameter, loads any scripts specified there and a single function call in the end 
+        /// which it prepares, but does not execute - this has to be done outside. This enables running the 
+        /// initialization loop in the middle
         /// </summary>
         /// <param name="fname"></param>
         /// <param name="args"></param>
@@ -144,30 +147,74 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
         {
             if (string.IsNullOrWhiteSpace(query)) throw new ArgumentNullException("one of query or loadquery is required");
             Match match;
-            match = _regexAppendInclude.Match(query);
+            int Pos = 0;
+            string content;
+            match = _regexAppendInclude.Match(query,Pos);
             while (match.Success) {
                 if (match.Groups[1].Success) {
                     switch (match.Groups[1].Value) {
                         case "include":
                             if (match.Groups[2].Success) { // From parameter
                                 ParameterResolverValue file = ctx.Evaluate(match.Groups[2].Value);
-                                //host.`ReadIncludeFile(file);
+                                if (file.Value is string filepath) {
+                                    content = ReadIncludeFile(filepath, ctx);
+                                    if (content != null) {
+                                        if (!host.AppendCode(content, filepath)) {
+                                            throw new QuickJSException($"Cannot add an include: {host.LastError}");
+                                        }
+                                    } else {
+                                        throw new FileNotFoundException($"Cannot read the include file {filepath}");
+                                    }
+                                } else {
+                                    throw new Exception($"The parameter {match.Groups[2].Value} did not resolve to string");
+                                }
                             } else if (match.Groups[3].Success) { // From literal
-
+                                content = ReadIncludeFile(match.Groups[3].Value, ctx);
+                                if (content != null) {
+                                    if (!host.AppendCode(content, match.Groups[3].Value)) {
+                                        throw new QuickJSException($"Cannot add an include: {host.LastError}");
+                                    }
+                                } else {
+                                    throw new FileNotFoundException($"Cannot read the include file {match.Groups[3].Value}");
+                                }
                             }
-
                             break;
                         case "append":
+                            if (match.Groups[2].Success) { // From parameter
+                                ParameterResolverValue code = ctx.Evaluate(match.Groups[2].Value);
+                                if (code.Value is string script) {
+                                    if (script != null) {
+                                        if (!host.AppendCode(script)) {
+                                            throw new QuickJSException($"Cannot append script: {host.LastError}");
+                                        }
+                                    } else {
+                                        throw new FileNotFoundException($"Append script failed.The parameter {match.Groups[2].Value} did not resolve to string.");
+                                    }
+                                }
+                            } else if (match.Groups[3].Success) { // From literal
+                                content = match.Groups[3].Value;
+                                if (content != null) {
+                                    if (!host.AppendCode(content)) {
+                                        throw new QuickJSException($"Cannot append code: {host.LastError}");
+                                    }
+                                } else {
+                                    throw new FileNotFoundException($"No scirpt code to append.");
+                                }
+                            }
                             break;
+                            
                     }
                 }
+                Pos = match.Index + match.Length;
                 match = match.NextMatch();
+                
             }
 
-            match = _regexFName.Match(query);
+            match = _regexFName.Match(query, Pos);
             if (match.Success && match.Groups[1].Success) {
+                Pos = match.Index + match.Length;
                 fname = match.Groups[1].Value;
-                match = _regexArguments.Match(query, match.Length);
+                match = _regexArguments.Match(query, Pos);
                 while (match.Success)
                 {
                     for (int i = 1; i < match.Groups.Count - 1; i++) {
@@ -218,9 +265,9 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     }
                     match = match.NextMatch();
                 }
-                throw new ArgumentException("Syntax error in the query for QuickJS plugin. Missing closing bracket.");
+                throw new ArgumentException("Syntax error in the query for QuickJS plugin. Missing closing bracket or ;.");
             } else {
-                throw new ArgumentException("Syntax error in the query for QuickJS plugin. It must be a function call with arguments from the node parameters or constants");
+                throw new ArgumentException("Syntax error in the query for QuickJS plugin. It must end with a function call with arguments from the node parameters or constants");
             }
         }
 #endregion

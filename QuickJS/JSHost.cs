@@ -48,7 +48,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     //_context.InitModuleStd("std");
                     //_context.InitModuleOS("os");
                     //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
-                    (_context.EvalFile(file, Encoding.ASCII, JSEvalFlags.Global) as IDisposable)?.Dispose();
+                    (_context.EvalFile(file, Encoding.UTF8, JSEvalFlags.Global) as IDisposable)?.Dispose();
                     _runtime.RunStdLoop(_context);
                 }
                 return true;
@@ -61,32 +61,42 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                 //return false;
             }
         }
-        // Ok, what was the point of commenting this?
-        // public bool InitContextFromSource(string script, string filename = null) {
-        //     if (_runtime != null) throw new InvalidOperationException("The quickjs is alredy initialized in this JSHost.");
-        //     try {
-        //         lock (_locker) {
-        //             _runtime = new QuickJSRuntime(_memoryLimit, _gcThreshold, _stackSize);
-        //             _runtimeNative = _runtime.NativeInstance;
-        //             _runtime.StdInitHandlers();
-        //             _context = _runtime.CreateContext();
-        //             _contextNative = _context.NativeInstance;
-        //             _context.StdAddHelpers();
-        //             //_context.InitModuleStd("std");
-        //             //_context.InitModuleOS("os");
-        //             //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
-        //             (_context.Eval(script, filename == null ? "<root>", JSValue.Null, JSEvalFlags.Global) as IDisposable)?.Dispose();
-        //             _runtime.RunStdLoop(_context);
-        //         }
-        //         return true;
-        //     } catch (Exception e) {
-        //         lock (_locker) {
-        //             UnInitContext();
-        //         }
-        //         LastError = e.Message;
-        //         return false;
-        //     }
-        // }
+#if !STATIC_JS
+        public bool AppendCode(string script, string filename = null) {
+            if (_runtime == null || _context == null) throw new InvalidOperationException("The quickjs is not initialized yet. Please follow the procedure - call InitContext first and then this method.");
+            try {
+                lock (_locker) {
+                    (_context.Eval(script, filename == null ? "<root>":filename, JSValue.Null, JSEvalFlags.Global) as IDisposable)?.Dispose();
+                }
+                return true;
+            } catch (Exception e) {
+                lock (_locker) {
+                    UnInitContext();
+                }
+                LastError = e.Message;
+                return false;
+            }
+        }
+        public bool AppendFile(string file) {
+            if (_runtime == null || _context == null) throw new InvalidOperationException("The quickjs is not initialized yet. Please follow the procedure - call InitContext first and then this method.");
+            try {
+                lock (_locker) {
+                    (_context.EvalFile(file, Encoding.UTF8, JSEvalFlags.Global) as IDisposable)?.Dispose();
+                }
+                return true;
+            } catch (Exception e) {
+                lock (_locker) {
+                    UnInitContext();
+                }
+                LastError = e.Message;
+                return false;
+            }
+        }
+        public void RunInitLoop() {
+            if (_context == null || _runtime == null) throw new InvalidOperationException("The quickjs is not initialized yet. Please follow the procedure - call InitContext first and then this method.");
+            _runtime.RunStdLoop(_context);
+        }
+#endif
         private void UnInitContext()
         {
             if (_runtime != null)
