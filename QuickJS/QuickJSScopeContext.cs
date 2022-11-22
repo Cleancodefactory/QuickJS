@@ -32,20 +32,20 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
 
 
         public JSHost Host() {
+            string file = null;
             if (CustomSettings.ContainsKey(CONF_FILE) && CustomSettings[CONF_FILE] != null) {
                 var key = ModuleName + PluginName;
                 string moduleRoot = System.IO.Path.Combine(KraftGlobalConfigurationSettings.GeneralSettings.ModulesRootFolder(ProcessingContext.InputModel.Module), ProcessingContext.InputModel.Module);
-                var file = CustomSettings[CONF_FILE].Replace("@moduleroot@", moduleRoot);
+                file = CustomSettings[CONF_FILE].Replace("@moduleroot@", moduleRoot);
 #if STATIC_JS
                 return QuickJSContainer.Instance.GetOrCreate(key, file,StackSize,MemorySize,GCThreshold);
 #else
-                JSHost host = new JSHost(StackSize, MemorySize, GCThreshold);
-                host.InitContext(file);
-                return host;
-#endif
-            } else {
-                return null;
             }
+            JSHost host = new JSHost(StackSize, MemorySize, GCThreshold);
+            host.InitContext(file); // null allowed
+            return host;
+#endif
+            
         }
 
         #region Handy config access

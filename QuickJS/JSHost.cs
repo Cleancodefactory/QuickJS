@@ -48,8 +48,10 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     //_context.InitModuleStd("std");
                     //_context.InitModuleOS("os");
                     //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
-                    (_context.EvalFile(file, Encoding.UTF8, JSEvalFlags.Global) as IDisposable)?.Dispose();
-                    _runtime.RunStdLoop(_context);
+                    if (file != null) { // file is optional, but then the AppendCode or AppendFile must be used.
+                        (_context.EvalFile(file, Encoding.UTF8, JSEvalFlags.Global) as IDisposable)?.Dispose();
+                        _runtime.RunStdLoop(_context);
+                    }
                 }
                 return true;
             } catch (Exception e) {

@@ -64,4 +64,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="additions\" />
+  </ItemGroup>
+
 </Project>

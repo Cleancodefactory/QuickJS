@@ -2,6 +2,8 @@
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using System.Security;
+using System.Reflection;
+using System.IO;
 
 namespace QuickJS.Native
 {
@@ -11,10 +13,41 @@ namespace QuickJS.Native
 	public static class QuickJSNativeApi
 	{
 		internal const MethodImplOptions AggressiveInlining = (MethodImplOptions)256;//.AggressiveInlining;
+		internal const string qjslibname = "quickjs";
 
-		#region quickjs-libc.h
+        #region lib loader
+        static QuickJSNativeApi() {
+			NativeLibrary.SetDllImportResolver(Assembly.GetExecutingAssembly(), DllImportResolver);
+        }
+        static IntPtr DllImportResolver(string libraryName, Assembly assembly, DllImportSearchPath? searchPath) {
+            IntPtr handle = IntPtr.Zero;
+			var assemblyPath = Path.GetDirectoryName(assembly.Location);
+            if (libraryName == qjslibname) {
+				if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+					if (Environment.Is64BitProcess) {
+						NativeLibrary.TryLoad(Path.Combine(assemblyPath,"runtimes/win-x64/native/quickjs.dll"),out handle);
+					} else {
+                        NativeLibrary.TryLoad(Path.Combine(assemblyPath, "runtimes/win-x86/native/quickjs.dll"), out handle);
+                    }
+				} else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
+					if (Environment.Is64BitProcess) {
+                        NativeLibrary.TryLoad(Path.Combine(assemblyPath, "runtimes/linux-x64/native/libquickjs.so"), out handle);
+                    } else {
+						throw new NotImplementedException("32 bit linux is not supported");
+					}
+				} else {
+                    throw new NotImplementedException("This platform is not currently supported");
+                }
 
-		[DllImport("quickjs", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+			}
+            
+            return handle;
+        }
+        #endregion lib loader
+
+        #region quickjs-libc.h
+
+        [DllImport("quickjs", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
 		public static extern JSModuleDef js_init_module_std(JSContext ctx, [MarshalAs(UnmanagedType.LPStr)] string module_name);
 
 		[DllImport("quickjs", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
