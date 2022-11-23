@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Ccf.Ck.Utilities.Generic;
+using dotless.Core.Parser.Infrastructure;
 using Org.BouncyCastle.Asn1.X509.Qualified;
 using QuickJS;
 using QuickJS.Native;
@@ -31,7 +32,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             if (gcThreshold != null) _gcThreshold = gcThreshold.Value;
         }
 
-        public bool InitContext(string file) {
+        public unsafe bool InitContext(string file) {
             if (_runtime!= null) throw new InvalidOperationException("The quickjs is alredy initialized in this JSHost.");
             try {
                 lock (_locker) {
@@ -45,6 +46,12 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     _context = _runtime.CreateContext();
                     _contextNative = _context.NativeInstance;
                     _context.StdAddHelpers();
+                    // Temp global proc
+                    QuickJSValue glob = _context.GetGlobal();
+                    //QuickJSValue obj = QuickJSValue.Create(_context);
+                    //obj.Op
+                    glob.DefineFunction("cback", CBack, 1, 0, null, JSPropertyFlags.CWE);
+                    //
                     //_context.InitModuleStd("std");
                     //_context.InitModuleOS("os");
                     //var o = _context.Eval("function main(n) { return n * n; }\nvar gyz='ako';", "<none>", JSEvalFlags.Global);
@@ -190,5 +197,55 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+        #region tooling - it must be implemented as instance members to provide access to context (and runtime too).
+        
+        public object JSToGenericData(QuickJSValue qval) {
+            if (qval.IsArray) {
+                int length = qval.GetProperty<int>("length");
+                if (length > 0) {
+                    var result = new List<Dictionary<string, object>>();
+                    for (var i = 0; i < length; i++) {
+                        var oval = qval.GetProperty(i);
+                        if (oval is QuickJSValue qjsval) {
+                            if (!qjsval.IsArray && qjsval.Tag == JSTag.Object) {
+                                Dictionary<string, object> dict = JSToGenericData(qjsval) as Dictionary<string, object>;
+                                if (dict != null) {
+                                    result.Add(dict);
+                                }
+                            }
+                        }
+                    }
+                    return result;
+                } else {
+                    return new List<Dictionary<string, object>>();
+                }
+            } else if (qval.Tag == JSTag.Object) {
+                string[] names = qval.GetOwnPropertyNames(JSGetPropertyNamesFlags.EnumOnly);
+                var result = new Dictionary<string, object>();
+                foreach (var name in names) {
+                    object o = qval.GetProperty(name);
+                    if (o == null || o is QuickJSUndefined) { result.Add(name, null); } 
+                    else if (o is double || o is double || o is bool || o is string) { 
+                        result.Add(name, o); 
+                    } else if (o is QuickJSValue q_val) {
+                        result.Add(name, JSToGenericData(q_val));
+                    } else {
+                        throw new Exception("Can't convert");
+                    }
+                    
+                }
+                return result;
+            }
+            return null;
+        }
+        private unsafe JSValue CBack(JSContext ctx, JSValue thisArg, int argc, JSValue[] argv, int magic, JSValue* data) {
+            using QuickJSValue v = QuickJSValue.Wrap(_context, argv[0]);
+            object o = JSToGenericData(v);
+            //Console.WriteLine($"Hello, {name}!");
+            return JSValue.Undefined;
+        }
+        #endregion
+
     }
 }

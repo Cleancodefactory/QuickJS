@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Represents the primitive value undefined.
 	/// </summary>
-	internal struct QuickJSUndefined
+	public struct QuickJSUndefined
 	{
 		/// <summary>
 		/// A read-only field that represents an undefined value.
