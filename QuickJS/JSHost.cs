@@ -59,7 +59,7 @@ namespace Ccf.Ck.SysPlugins.QuickJS {
                     UnInitContext();
                 }
                 LastError = e.Message;
-                throw e;
+                throw;
                 //return false;
             }
         }
