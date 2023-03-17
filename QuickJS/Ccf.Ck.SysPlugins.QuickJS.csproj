@@ -13,10 +13,12 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<OutputPath>..\..\..\Modules\_PluginsReferences</OutputPath>
-	</PropertyGroup>
+    </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\QuickJS.NET\QuickJS.NET.csproj" />
+    <Reference Include="QuickJS.NET">
+      <HintPath>..\References\QuickJS.NET.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

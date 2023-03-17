@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "QuickJS.NET/0.0.3.0": {
+        "runtime": {
+          "QuickJS.NET.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "QuickJS.NET/0.0.3.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
