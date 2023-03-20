@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <Reference Include="QuickJS.NET">
-      <HintPath>..\References\QuickJS.NET.dll</HintPath>
+      <HintPath>..\..\References\QuickJS.NET.dll</HintPath>
     </Reference>
   </ItemGroup>
 
