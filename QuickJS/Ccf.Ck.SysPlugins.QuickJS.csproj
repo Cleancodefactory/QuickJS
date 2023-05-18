@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ccf.Ck.Framework" Version="7.0.2" />
+    <PackageReference Include="Ccf.Ck.Framework" Version="7.0.3" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
